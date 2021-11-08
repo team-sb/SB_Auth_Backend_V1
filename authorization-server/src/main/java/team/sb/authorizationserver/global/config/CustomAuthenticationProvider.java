@@ -7,17 +7,22 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import team.sb.authorizationserver.domain.user.entity.User;
 import team.sb.authorizationserver.domain.user.repository.UserRepository;
 
-@RequiredArgsConstructor
 @Component
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
+
+    public CustomAuthenticationProvider(UserRepository userRepository) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    }
 
     @Override
     public Authentication authenticate(Authentication authentication) {
