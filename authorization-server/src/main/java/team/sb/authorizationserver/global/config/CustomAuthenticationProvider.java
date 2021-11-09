@@ -30,12 +30,6 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         String name = authentication.getName();
         String password = authentication.getCredentials().toString();
 
-        userRepository.save(User.builder()
-                .name("user")
-                .uid("user")
-                .password(passwordEncoder.encode("1234"))
-                .build());
-
         User user = userRepository.findByUid(name)
                 .orElseThrow(() -> new UsernameNotFoundException("user is not exists"));
 
