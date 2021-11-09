@@ -25,7 +25,6 @@ public class UserService {
                 .uid(request.getUid())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .name(request.getName())
-                .provider(request.getProvider())
                 .build());
     }
 
