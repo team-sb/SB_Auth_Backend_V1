@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import team.sb.authorizationserver.global.config.CustomAuthenticationProvider;
 
@@ -20,18 +21,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final CustomAuthenticationProvider authenticationProvider;
 
     @Bean
-    public PasswordEncoder encoder() {
-        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    public PasswordEncoder noOpPasswordEncoder() {
+        return NoOpPasswordEncoder.getInstance();
     }
 
-    @Override
-    @Bean
-    public AuthenticationManager authenticationManager() throws Exception {
-        return super.authenticationManagerBean();
-    }
+//    @Override
+//    @Bean
+//    public AuthenticationManager authenticationManager() throws Exception {
+//        return super.authenticationManagerBean();
+//    }
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) {
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(authenticationProvider);
     }
 
@@ -46,7 +47,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/oauth/**").permitAll()
-                .antMatchers("/oauth2/**").permitAll();
+                .antMatchers("/oauth2/**").permitAll()
+                .antMatchers("/user/**").permitAll();
     }
 
 }
