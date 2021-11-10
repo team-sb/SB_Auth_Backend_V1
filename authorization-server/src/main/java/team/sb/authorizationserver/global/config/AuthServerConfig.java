@@ -22,9 +22,6 @@ import javax.sql.DataSource;
 @EnableAuthorizationServer
 public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
 
-    @Value("security.oauth2.jwt.signkey")
-    private String signKey;
-
     private final DataSource dataSource;
     private final PasswordEncoder passwordEncoder;
     private final CustomUserDetailsService userDetailService;
