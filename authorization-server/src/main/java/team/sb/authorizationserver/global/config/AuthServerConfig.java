@@ -22,10 +22,12 @@ import javax.sql.DataSource;
 @EnableAuthorizationServer
 public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
 
+    @Value("security.oauth2.jwt.signkey")
+    private String signKey;
+
     private final DataSource dataSource;
     private final PasswordEncoder passwordEncoder;
     private final CustomUserDetailsService userDetailService;
-
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
@@ -39,7 +41,6 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
                 .allowFormAuthenticationForClients();
     }
 
-
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         super.configure(endpoints);
@@ -48,14 +49,20 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
                 .userDetailsService(userDetailService);
     }
 
+//    @Bean
+//    public JwtAccessTokenConverter jwtAccessTokenConverter() {
+//        KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(
+//                new FileSystemResource("src/main/resources/oauth2jwt.jks"), "oauth2jwtpass".toCharArray()
+//        );
+//        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
+//        converter.setKeyPair(keyStoreKeyFactory.getKeyPair("oauth2jwt"));
+//        return converter;
+//    }
 
     @Bean
     public JwtAccessTokenConverter jwtAccessTokenConverter() {
-        KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(
-                new FileSystemResource("src/main/resources/oauth2jwt.jks"), "oauth2jwtpass".toCharArray()
-        );
         JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-        converter.setKeyPair(keyStoreKeyFactory.getKeyPair("oauth2jwt"));
+        converter.setSigningKey(signKey);
         return converter;
     }
 
