@@ -21,7 +21,7 @@ public class OAuth2Controller {
     private final RestTemplate restTemplate;
 
     @GetMapping(value = "/callback")
-    public String callbackSocial(@RequestParam String code) {
+    public OAuthToken callbackSocial(@RequestParam String code) {
 
         String credentials = "testClientId:testSecret";
         String encodedCredentials = new String(Base64.encodeBase64(credentials.getBytes()));
@@ -36,7 +36,7 @@ public class OAuth2Controller {
         params.add("redirect_uri", "http://localhost:8081/oauth2/callback");
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(params, headers);
 
-        ResponseEntity<String> response = restTemplate.postForEntity("http://localhost:8081/oauth/token", request, String.class);
+        ResponseEntity<OAuthToken> response = restTemplate.postForEntity("http://localhost:8081/oauth/token", request, OAuthToken.class);
 
         System.out.println(response.getStatusCode());
         System.out.println(response.getBody());
