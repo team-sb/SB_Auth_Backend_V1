@@ -1,4 +1,4 @@
-package team.sb.authorizationserver.global.config;
+package team.sb.authorizationserver.global.security;
 
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
