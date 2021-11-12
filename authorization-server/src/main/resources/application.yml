@@ -16,6 +16,9 @@ spring:
     password: ${DB_PWD}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
+#  main:
+#    allow-bean-definition-overriding: true
+
 security:
   oauth2:
     jwt:
