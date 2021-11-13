@@ -54,22 +54,22 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
                 .userDetailsService(userDetailService);
     }
 
-//    @Bean
-//    public JwtAccessTokenConverter jwtAccessTokenConverter() {
-//        KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(
-//                new ClassPathResource("src/main/resources/sbtoken.jks"), "sbpass".toCharArray()
-//        );
-//        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-//        converter.setKeyPair(keyStoreKeyFactory.getKeyPair("sbauth"));
-//        return converter;
-//    }
-
     @Bean
     public JwtAccessTokenConverter jwtAccessTokenConverter() {
+        KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(
+                new ClassPathResource("src/main/resources/sbtoken.jks"), "sbpass".toCharArray()
+        );
         JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-        converter.setSigningKey(signKey);
+        converter.setKeyPair(keyStoreKeyFactory.getKeyPair("sbauth"));
         return converter;
     }
+
+//    @Bean
+//    public JwtAccessTokenConverter jwtAccessTokenConverter() {
+//        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
+//        converter.setSigningKey(signKey);
+//        return converter;
+//    }
 
     @Bean
     public TokenStore tokenStore() {
