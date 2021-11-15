@@ -33,7 +33,7 @@ public class OAuth2Controller {
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         params.add("code", code);
         params.add("grant_type", "authorization_code");
-        params.add("redirect_uri", "http://localhost:8081/oauth2/callback");
+        params.add("redirect_uri", "http://localhost:8081/oauth2/re");
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(params, headers);
 
         ResponseEntity<OAuthToken> response = restTemplate.postForEntity("http://localhost:8081/oauth/token", request, OAuthToken.class);
@@ -50,7 +50,7 @@ public class OAuth2Controller {
     }
 
     @GetMapping(value = "/token/refresh")
-    public String refreshToken(@RequestParam String refreshToken) {
+    public OAuthToken refreshToken(@RequestParam String refreshToken) {
 
         String credentials = "testClientId:testSecret";
         String encodedCredentials = new String(Base64.encodeBase64(credentials.getBytes()));
@@ -65,7 +65,7 @@ public class OAuth2Controller {
         params.add("grant_type", "refresh_token");
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(params, headers);
 
-        ResponseEntity<String> response = restTemplate.postForEntity("http://localhost:8081/oauth/token", request, String.class);
+        ResponseEntity<OAuthToken> response = restTemplate.postForEntity("http://localhost:8081/oauth/token", request, OAuthToken.class);
 
         if (response.getStatusCode() == HttpStatus.OK) {
 //            return gson.fromJson(response.getBody(), OAuthToken.class);
