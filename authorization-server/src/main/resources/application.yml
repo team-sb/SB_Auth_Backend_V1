@@ -16,13 +16,14 @@ spring:
     password: ${DB_PWD}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
-#  main:
-#    allow-bean-definition-overriding: true
-
 security:
   oauth2:
     jwt:
-      signkey: 123@!
+      signkey: ${SIGN_KEY:123@!}
+
+client:
+  clientId: ${CLIENT_ID:testClientId}
+  clientSecret: ${CLIENT_SECRET:testClientSecret}
 
 server:
   port: 8081

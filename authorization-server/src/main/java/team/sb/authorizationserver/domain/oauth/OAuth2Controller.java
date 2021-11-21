@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+import team.sb.authorizationserver.global.config.ClientConfig;
 
 @RequiredArgsConstructor
 @RestController
@@ -19,11 +20,12 @@ public class OAuth2Controller {
 
     private final Gson gson;
     private final RestTemplate restTemplate;
+    private final ClientConfig clientConfig;
 
     @GetMapping(value = "/callback")
     public String callbackSocial(@RequestParam String code) {
 
-        String credentials = "testClientId:testSecret";
+        String credentials = clientConfig.getClientId() + ":" + clientConfig.getClientSecret();
         String encodedCredentials = new String(Base64.encodeBase64(credentials.getBytes()));
 
         HttpHeaders headers = new HttpHeaders();
