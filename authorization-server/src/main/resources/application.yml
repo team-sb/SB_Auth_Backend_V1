@@ -23,7 +23,7 @@ security:
 
 client:
   clientId: ${CLIENT_ID:testClientId}
-  clientSecret: ${CLIENT_SECRET:testClientSecret}
+  clientSecret: ${CLIENT_SECRET:testSecret}
 
 server:
   port: 8081

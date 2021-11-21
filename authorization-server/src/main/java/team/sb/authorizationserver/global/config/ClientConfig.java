@@ -3,11 +3,11 @@ package team.sb.authorizationserver.global.config;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.boot.context.properties.ConstructorBinding;
 
 @Getter
 @AllArgsConstructor
-@Configuration
+@ConstructorBinding
 @ConfigurationProperties(prefix = "client")
 public class ClientConfig {
 
