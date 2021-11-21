@@ -8,7 +8,7 @@ import org.springframework.boot.context.properties.ConstructorBinding;
 @Getter
 @AllArgsConstructor
 @ConstructorBinding
-@ConfigurationProperties(prefix = "client")
+@ConfigurationProperties(prefix = "security.oauth2.client")
 public class ClientConfig {
 
     private final String clientId;

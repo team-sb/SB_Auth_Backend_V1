@@ -54,7 +54,7 @@ public class OAuth2Controller {
     @GetMapping(value = "/token/refresh")
     public String refreshToken(@RequestParam String refreshToken) {
 
-        String credentials = "testClientId:testSecret";
+        String credentials = clientConfig.getClientId() + ":" + clientConfig.getClientSecret();
         String encodedCredentials = new String(Base64.encodeBase64(credentials.getBytes()));
 
         HttpHeaders headers = new HttpHeaders();

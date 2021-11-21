@@ -45,7 +45,6 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
                 .accessTokenConverter(jwtAccessTokenConverter())
                 .tokenStore(tokenStore())
                 .userDetailsService(userDetailService);
-//                .authenticationManager(authenticationManager)
     }
 
 //    @Bean

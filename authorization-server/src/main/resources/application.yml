@@ -20,10 +20,9 @@ security:
   oauth2:
     jwt:
       signkey: ${SIGN_KEY:123@!}
-
-client:
-  clientId: ${CLIENT_ID:testClientId}
-  clientSecret: ${CLIENT_SECRET:testSecret}
+    client:
+      clientId: ${CLIENT_ID:testClientId}
+      clientSecret: ${CLIENT_SECRET:testSecret}
 
 server:
   port: 8081
