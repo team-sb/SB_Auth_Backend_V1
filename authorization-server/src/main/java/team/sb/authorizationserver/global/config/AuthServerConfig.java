@@ -31,7 +31,7 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
     private final DataSource dataSource;
     private final PasswordEncoder passwordEncoder;
     private final CustomUserDetailsService userDetailService;
-    private final AuthenticationManager authenticationManager;
+//    private final AuthenticationManager authenticationManager;
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
@@ -42,10 +42,10 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         super.configure(endpoints);
         endpoints
+                .accessTokenConverter(jwtAccessTokenConverter())
                 .tokenStore(tokenStore())
-                .userDetailsService(userDetailService)
-                .authenticationManager(authenticationManager)
-                .accessTokenConverter(jwtAccessTokenConverter());
+                .userDetailsService(userDetailService);
+//                .authenticationManager(authenticationManager)
     }
 
 //    @Bean
@@ -68,6 +68,13 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
     @Bean
     public TokenStore tokenStore() {
         return new JwtTokenStore(jwtAccessTokenConverter());
+    }
+
+    @Override
+    public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
+        security.tokenKeyAccess("permitAll()")
+                .checkTokenAccess("isAuthenticated()")
+                .allowFormAuthenticationForClients();
     }
 
 }
