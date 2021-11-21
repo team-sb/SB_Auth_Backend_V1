@@ -33,7 +33,7 @@ public class OAuth2Controller {
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         params.add("code", code);
         params.add("grant_type", "authorization_code");
-        params.add("redirect_uri", "http://localhost:8081/oauth2/re");
+        params.add("redirect_uri", "http://localhost:8081/oauth2/callback");
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(params, headers);
 
         ResponseEntity<OAuthToken> response = restTemplate.postForEntity("http://localhost:8081/oauth/token", request, OAuthToken.class);
