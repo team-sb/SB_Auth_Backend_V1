@@ -1,5 +1,6 @@
 package team.sb.authorizationserver.global.security;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -11,16 +12,12 @@ import org.springframework.stereotype.Component;
 import team.sb.authorizationserver.domain.user.entity.User;
 import team.sb.authorizationserver.domain.user.repository.UserRepository;
 
+@RequiredArgsConstructor
 @Component
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
-
-    public CustomAuthenticationProvider(UserRepository userRepository) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-    }
 
     @Override
     public Authentication authenticate(Authentication authentication) {
