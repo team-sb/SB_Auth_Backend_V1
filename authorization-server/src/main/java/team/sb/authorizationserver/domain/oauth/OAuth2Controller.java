@@ -44,7 +44,7 @@ public class OAuth2Controller {
         System.out.println(response.getBody());
 
         if (response.getStatusCode() == HttpStatus.OK) {
-//            return gson.toJson(response.getBody(), OAuthToken.class);
+//            return gson.fromJson(response.getBody(), OAuthToken.class);
             return response.getBody();
         }
 
