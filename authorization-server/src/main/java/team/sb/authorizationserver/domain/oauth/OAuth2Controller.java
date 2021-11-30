@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
-import team.sb.authorizationserver.global.config.ClientConfig;
+import team.sb.authorizationserver.global.config.ClientProperties;
 
 @RequiredArgsConstructor
 @RestController
@@ -20,12 +20,12 @@ public class OAuth2Controller {
 
     private final Gson gson;
     private final RestTemplate restTemplate;
-    private final ClientConfig clientConfig;
+    private final ClientProperties clientProperties;
 
     @GetMapping(value = "/callback")
     public String callbackSocial(@RequestParam String code) {
 
-        String credentials = clientConfig.getClientId() + ":" + clientConfig.getClientSecret();
+        String credentials = clientProperties.getClientId() + ":" + clientProperties.getClientSecret();
         String encodedCredentials = new String(Base64.encodeBase64(credentials.getBytes()));
 
         HttpHeaders headers = new HttpHeaders();
@@ -54,7 +54,7 @@ public class OAuth2Controller {
     @GetMapping(value = "/token/refresh")
     public String refreshToken(@RequestParam String refreshToken) {
 
-        String credentials = clientConfig.getClientId() + ":" + clientConfig.getClientSecret();
+        String credentials = clientProperties.getClientId() + ":" + clientProperties.getClientSecret();
         String encodedCredentials = new String(Base64.encodeBase64(credentials.getBytes()));
 
         HttpHeaders headers = new HttpHeaders();
