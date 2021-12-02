@@ -24,7 +24,7 @@ public class UserController {
     public User getCurrentUser() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        return userRepository.findByUid(principal.toString())
+        return userRepository.findByEmail(principal.toString())
                 .orElseThrow(() -> new RuntimeException("user not found"));
     }
 
