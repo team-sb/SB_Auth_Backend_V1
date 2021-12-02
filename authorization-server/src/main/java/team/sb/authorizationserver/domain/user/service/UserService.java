@@ -17,12 +17,12 @@ public class UserService {
 
     @Transactional
     public void signup(SignupRequest request) {
-        if(userRepository.findByEmail(request.getUid()).isPresent()) {
-            throw new IllegalArgumentException("user already exists");
+        if(userRepository.findByEmail(request.getEmail()).isPresent()) {
+            throw new RuntimeException("user already exists");
         }
 
         userRepository.save(User.builder()
-                .uid(request.getUid())
+                .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .name(request.getName())
                 .build());
