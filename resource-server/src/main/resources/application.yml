@@ -18,13 +18,13 @@ spring:
 
 security:
   oauth2:
-#    jwt:
-#      signkey: ${SIGN_KEY:123@!}
-    resource:
-      token-info-uri: http://localhost:8081/oauth/check_token
-    client:
-      clientId: ${CLIENT_ID:testClientId}
-      clientSecret: ${CLIENT_SECRET:testSecret}
+    jwt:
+      signkey: ${SIGN_KEY:123@!}
+#    resource:
+#      token-info-uri: http://localhost:8081/oauth/check_token
+#    client:
+#      clientId: ${CLIENT_ID:testClientId}
+#      clientSecret: ${CLIENT_SECRET:testSecret}
 
 server:
   port: 8082
