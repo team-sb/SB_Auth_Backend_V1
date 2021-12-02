@@ -1,7 +1,7 @@
 spring:
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     database: mysql
     generate-ddl: true
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
@@ -11,21 +11,20 @@ spring:
       property-naming-strategy: SNAKE_CASE
 
   datasource:
-    url: ${DB_URL}
-    username: ${DB_USER}
-    password: ${DB_PWD}
+    url: ${DB_URL:}
+    username: ${DB_USER:}
+    password: ${DB_PWD:}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 security:
   oauth2:
     jwt:
       signkey: ${SIGN_KEY:123@!}
-#    resource:
-#      token-info-uri: http://localhost:8081/oauth/check_token
-#    client:
-#      clientId: ${CLIENT_ID:testClientId}
-#      clientSecret: ${CLIENT_SECRET:testSecret}
+    resource:
+      token-info-uri: http://localhost:8081/oauth/check_token
+    client:
+      clientId: ${CLIENT_ID:testClientId}
+      clientSecret: ${CLIENT_SECRET:testSecret}
 
 server:
   port: 8082
-
