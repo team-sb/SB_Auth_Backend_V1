@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 @Entity
 public class User implements UserDetails {
 
-    @Id // pk
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long msrl;
 
