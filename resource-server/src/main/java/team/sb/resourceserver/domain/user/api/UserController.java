@@ -14,8 +14,6 @@ public class UserController {
     public ResponseEntity<?> userInfo() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        System.out.println(principal);
-
         return ResponseEntity.ok(principal);
     }
 
