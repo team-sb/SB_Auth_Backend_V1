@@ -58,6 +58,8 @@ public class OAuth2Controller {
         headers.add("Authorization", "Basic " + encodedCredentials);
 
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        params.add("grant_type", "authorization_code");
+        params.add("redirect_uri", "http://localhost:8081/oauth2/callback");
 
         switch (caseNum) {
             case 0:
