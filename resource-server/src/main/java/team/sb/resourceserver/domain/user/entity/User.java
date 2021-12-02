@@ -7,6 +7,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -22,7 +23,7 @@ public class User implements UserDetails {
     private Long msrl;
 
     @Column(nullable = false, unique = true)
-    private String uid;
+    private String email;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(length = 100)
@@ -31,14 +32,21 @@ public class User implements UserDetails {
     @Column(nullable = false, columnDefinition = "char(5)")
     private String name;
 
+    private String phoneNumber;
+
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
+
+    private LocalDateTime birthDay;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority(this.uid));
+        return Collections.singleton(new SimpleGrantedAuthority(this.email));
     }
 
     @Override
     public String getUsername() {
-        return this.uid;
+        return this.email;
     }
 
     @Override
