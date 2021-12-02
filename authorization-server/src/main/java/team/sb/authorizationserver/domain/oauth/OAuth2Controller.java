@@ -25,23 +25,7 @@ public class OAuth2Controller {
     @GetMapping(value = "/callback")
     public String callbackSocial(@RequestParam String code) {
 
-        String credentials = clientProperties.getClientId() + ":" + clientProperties.getClientSecret();
-        String encodedCredentials = new String(Base64.encodeBase64(credentials.getBytes()));
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-        headers.add("Authorization", "Basic " + encodedCredentials);
-
-        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-        params.add("code", code);
-        params.add("grant_type", "authorization_code");
-        params.add("redirect_uri", "http://localhost:8081/oauth2/callback");
-        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(params, headers);
-
-        ResponseEntity<String> response = restTemplate.postForEntity("http://localhost:8081/oauth/token", request, String.class);
-
-        System.out.println(response.getStatusCode());
-        System.out.println(response.getBody());
+        ResponseEntity<String> response = getResponse(code, 0);
 
         if (response.getStatusCode() == HttpStatus.OK) {
 //            return gson.fromJson(response.getBody(), OAuthToken.class);
@@ -54,20 +38,7 @@ public class OAuth2Controller {
     @GetMapping(value = "/token/refresh")
     public String refreshToken(@RequestParam String refreshToken) {
 
-        String credentials = clientProperties.getClientId() + ":" + clientProperties.getClientSecret();
-        String encodedCredentials = new String(Base64.encodeBase64(credentials.getBytes()));
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-        headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
-        headers.add("Authorization", "Basic " + encodedCredentials);
-
-        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-        params.add("refresh_token", refreshToken);
-        params.add("grant_type", "refresh_token");
-        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(params, headers);
-
-        ResponseEntity<String> response = restTemplate.postForEntity("http://localhost:8081/oauth/token", request, String.class);
+        ResponseEntity<String> response = getResponse(refreshToken, 1);
 
         if (response.getStatusCode() == HttpStatus.OK) {
 //            return gson.fromJson(response.getBody(), OAuthToken.class);
@@ -75,6 +46,33 @@ public class OAuth2Controller {
         }
 
         return null;
+    }
+
+    private ResponseEntity<String> getResponse(String param, int caseNum) {
+
+        String credentials = clientProperties.getClientId() + ":" + clientProperties.getClientSecret();
+        String encodedCredentials = new String(Base64.encodeBase64(credentials.getBytes()));
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        headers.add("Authorization", "Basic " + encodedCredentials);
+
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+
+        switch (caseNum) {
+            case 0:
+                params.add("code", param);
+                break;
+            case 1:
+                params.add("refresh_token", param);
+                break;
+            default: throw new RuntimeException("Invalid caseNum");
+        }
+
+        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(params, headers);
+
+        return restTemplate.postForEntity("http://localhost:8081/oauth/token", request, String.class);
+
     }
 
 }
