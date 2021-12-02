@@ -17,8 +17,8 @@ public class CustomUserDetailsService implements UserDetailsService {
     private final AccountStatusUserDetailsChecker detailsChecker = new AccountStatusUserDetailsChecker();
 
     @Override
-    public UserDetails loadUserByUsername(String name) {
-        User user = userRepository.findByUid(name)
+    public UserDetails loadUserByUsername(String email) {
+        User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("user not found"));
 
         detailsChecker.check(user);

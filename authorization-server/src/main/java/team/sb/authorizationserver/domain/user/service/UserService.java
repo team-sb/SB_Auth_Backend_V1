@@ -17,7 +17,7 @@ public class UserService {
 
     @Transactional
     public void signup(SignupRequest request) {
-        if(userRepository.findByUid(request.getUid()).isPresent()) {
+        if(userRepository.findByEmail(request.getUid()).isPresent()) {
             throw new IllegalArgumentException("user already exists");
         }
 

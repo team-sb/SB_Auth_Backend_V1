@@ -21,16 +21,16 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     @Override
     public Authentication authenticate(Authentication authentication) {
 
-        String name = authentication.getName();
+        String email = authentication.getName();
         String password = authentication.getCredentials().toString();
 
-        User user = userRepository.findByUid(name)
+        User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("user is not exists"));
 
         if (!passwordEncoder.matches(password, user.getPassword()))
             throw new BadCredentialsException("password is not valid");
 
-        return new UsernamePasswordAuthenticationToken(name, password, user.getAuthorities());
+        return new UsernamePasswordAuthenticationToken(email, password, user.getAuthorities());
     }
 
     @Override
