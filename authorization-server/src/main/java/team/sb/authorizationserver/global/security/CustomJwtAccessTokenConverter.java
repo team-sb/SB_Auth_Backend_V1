@@ -5,6 +5,7 @@ import com.nimbusds.jose.crypto.RSAEncrypter;
 import com.nimbusds.jose.jwk.KeyUse;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.gen.RSAKeyGenerator;
+import com.nimbusds.jose.util.Base64URL;
 import com.nimbusds.jwt.SignedJWT;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
@@ -22,7 +23,6 @@ public class CustomJwtAccessTokenConverter extends JwtAccessTokenConverter {
             e.printStackTrace();
         }
     }
-
 
     @Override
     protected String encode(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
