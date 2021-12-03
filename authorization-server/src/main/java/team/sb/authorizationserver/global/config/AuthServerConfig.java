@@ -10,16 +10,13 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
-import org.springframework.security.oauth2.provider.token.TokenEnhancer;
-import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
-import team.sb.authorizationserver.global.security.CustomTokenEnhancer;
+import team.sb.authorizationserver.global.security.CustomJwtAccessTokenConverter;
 import team.sb.authorizationserver.global.security.CustomUserDetailsService;
 
 import javax.sql.DataSource;
-import java.util.Arrays;
 
 @RequiredArgsConstructor
 @Configuration
@@ -66,7 +63,7 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
 
     @Bean
     public JwtAccessTokenConverter jwtAccessTokenConverter() {
-        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
+        JwtAccessTokenConverter converter = new CustomJwtAccessTokenConverter();
         converter.setSigningKey(signKey);
         return converter;
     }
