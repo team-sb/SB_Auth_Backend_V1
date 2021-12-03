@@ -15,7 +15,7 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
-import team.sb.authorizationserver.global.security.CustomJwtAccessTokenConverter;
+//import team.sb.authorizationserver.global.security.CustomJwtAccessTokenConverter;
 import team.sb.authorizationserver.global.security.CustomUserDetailsService;
 
 import javax.sql.DataSource;
@@ -66,7 +66,7 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
 
     @Bean
     public JwtAccessTokenConverter jwtAccessTokenConverter() {
-        JwtAccessTokenConverter converter = new CustomJwtAccessTokenConverter();
+        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
         converter.setSigningKey(signKey);
         return converter;
     }
