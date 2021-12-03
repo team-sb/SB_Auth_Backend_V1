@@ -10,12 +10,16 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.token.TokenEnhancer;
+import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
+import team.sb.authorizationserver.global.security.CustomTokenEnhancer;
 import team.sb.authorizationserver.global.security.CustomUserDetailsService;
 
 import javax.sql.DataSource;
+import java.util.Arrays;
 
 @RequiredArgsConstructor
 @Configuration
@@ -37,9 +41,16 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         super.configure(endpoints);
+
+//        TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
+//        tokenEnhancerChain.setTokenEnhancers(
+//                Arrays.asList(tokenEnhancer(), jwtAccessTokenConverter())
+//        );
+
         endpoints
                 .accessTokenConverter(jwtAccessTokenConverter())
                 .tokenStore(tokenStore())
+//                .tokenEnhancer(tokenEnhancer())
                 .userDetailsService(userDetailService);
     }
 
@@ -64,6 +75,12 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
     public TokenStore tokenStore() {
         return new JwtTokenStore(jwtAccessTokenConverter());
     }
+
+//    // token에 추가 정보 넣을 때 사용
+//    @Bean
+//    public TokenEnhancer tokenEnhancer() {
+//        return new CustomTokenEnhancer();
+//    }
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
