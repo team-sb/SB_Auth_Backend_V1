@@ -19,7 +19,7 @@ spring:
 security:
   oauth2:
     jwt:
-      signkey: ${SIGN_KEY:MTIzQCE=}
+      signkey: ${SIGN_KEY:123@!}
     client:
       clientId: ${CLIENT_ID:testClientId}
       clientSecret: ${CLIENT_SECRET:testSecret}
