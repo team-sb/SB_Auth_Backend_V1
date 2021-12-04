@@ -6,6 +6,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -18,18 +19,25 @@ import java.util.stream.Collectors;
 @Entity
 public class User implements UserDetails {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long msrl;
 
-    @Column(nullable = false, unique = true, length = 50)
+    @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(length = 100)
+    @Column(nullable = false, columnDefinition = "char(60)")
     private String password;
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false, columnDefinition = "char(5)")
     private String name;
+
+    @Column(nullable = false, unique = true)
+    private String phoneNumber;
+
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
+
+    private LocalDateTime birthDay;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default

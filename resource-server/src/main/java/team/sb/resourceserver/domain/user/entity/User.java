@@ -17,19 +17,19 @@ import java.util.Collections;
 @Entity
 public class User implements UserDetails {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long msrl;
 
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(length = 100)
+    @Column(nullable = false, columnDefinition = "char(60)")
     private String password;
 
     @Column(nullable = false, columnDefinition = "char(5)")
     private String name;
 
+    @Column(nullable = false, unique = true)
     private String phoneNumber;
 
     @Enumerated(EnumType.STRING)
