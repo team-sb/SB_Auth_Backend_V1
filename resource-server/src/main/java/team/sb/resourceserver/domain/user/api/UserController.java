@@ -23,7 +23,7 @@ public class UserController {
         return new UserInfoResponse(user);
     }
 
-    public User getCurrentUser() {
+    private User getCurrentUser() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         return userRepository.findByEmail(principal.toString())
