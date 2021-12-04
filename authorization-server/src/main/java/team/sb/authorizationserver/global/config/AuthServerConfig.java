@@ -19,18 +19,24 @@ import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFacto
 import team.sb.authorizationserver.global.security.CustomUserDetailsService;
 
 import javax.sql.DataSource;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 
 @RequiredArgsConstructor
 @Configuration
 @EnableAuthorizationServer
 public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
 
-    @Value("security.oauth2.jwt.signkey")
     private String signKey;
 
     private final DataSource dataSource;
     private final PasswordEncoder passwordEncoder;
     private final CustomUserDetailsService userDetailService;
+
+    @Value("${security.oauth2.jwt.signkey}")
+    public void setSecretKey(String secretKey) {
+        this.signKey = Base64.getEncoder().encodeToString(secretKey.getBytes(StandardCharsets.UTF_8));
+    }
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
