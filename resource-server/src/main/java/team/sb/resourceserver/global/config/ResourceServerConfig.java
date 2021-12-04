@@ -20,7 +20,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     private String signKey;
 
     @Value("${security.oauth2.jwt.signkey}")
-    public void setSecretKey(String secretKey) {
+    private void setSecretKey(String secretKey) {
         this.signKey = Base64.getEncoder().encodeToString(secretKey.getBytes(StandardCharsets.UTF_8));
     }
 

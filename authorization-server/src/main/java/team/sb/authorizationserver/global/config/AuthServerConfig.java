@@ -33,7 +33,7 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
     private final CustomUserDetailsService userDetailService;
 
     @Value("${security.oauth2.jwt.signkey}")
-    public void setSecretKey(String secretKey) {
+    private void setSecretKey(String secretKey) {
         this.signKey = Base64.getEncoder().encodeToString(secretKey.getBytes(StandardCharsets.UTF_8));
     }
 
