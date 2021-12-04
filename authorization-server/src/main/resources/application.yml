@@ -1,7 +1,7 @@
 spring:
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     database: mysql
     generate-ddl: true
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
@@ -19,7 +19,7 @@ spring:
 security:
   oauth2:
     jwt:
-      signkey: ${SIGN_KEY:123@!}
+      signkey: ${SIGN_KEY:MTIzQCE=}
     client:
       clientId: ${CLIENT_ID:testClientId}
       clientSecret: ${CLIENT_SECRET:testSecret}
