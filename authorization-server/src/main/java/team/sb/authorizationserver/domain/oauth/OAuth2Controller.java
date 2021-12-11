@@ -1,6 +1,5 @@
 package team.sb.authorizationserver.domain.oauth;
 
-import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.http.*;
