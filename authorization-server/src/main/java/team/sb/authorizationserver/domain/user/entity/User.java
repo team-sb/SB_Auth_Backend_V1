@@ -6,6 +6,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -32,11 +33,14 @@ public class User implements UserDetails {
     private String name;
 
     @Column(nullable = false, unique = true)
+    @Size(min = 11, max = 11)
     private String phoneNumber;
 
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
+    @Column(nullable = false)
     private LocalDateTime birthDay;
 
     @ElementCollection(fetch = FetchType.EAGER)
