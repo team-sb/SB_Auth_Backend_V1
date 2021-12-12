@@ -6,7 +6,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -32,10 +32,12 @@ public class User implements UserDetails {
     @Column(nullable = false, unique = true)
     private String phoneNumber;
 
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
-    private LocalDateTime birthDay;
+    @Column(nullable = false)
+    private LocalDate birthDay;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
