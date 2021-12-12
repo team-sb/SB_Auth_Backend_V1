@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import team.sb.authorizationserver.global.security.custom.CustomAuthenticationProvider;
 
 @RequiredArgsConstructor
 @Configuration
@@ -40,7 +41,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/oauth/**").permitAll()
                 .antMatchers("/oauth2/**").permitAll()
-                .antMatchers("/user/**").permitAll();
+                .antMatchers("/user/**").permitAll()
+
+                .and()
+                .apply(new FilterConfig());
     }
 
 }
