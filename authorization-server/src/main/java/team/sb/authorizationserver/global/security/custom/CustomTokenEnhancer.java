@@ -1,5 +1,6 @@
 package team.sb.authorizationserver.global.security;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
@@ -11,10 +12,10 @@ import team.sb.authorizationserver.domain.user.repository.UserRepository;
 import java.util.HashMap;
 import java.util.Map;
 
+@RequiredArgsConstructor
 public class CustomTokenEnhancer implements TokenEnhancer {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     // Access Token에 추가하고 싶은 값 추가
     @Override

@@ -5,11 +5,11 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import team.sb.authorizationserver.domain.user.entity.User;
 import team.sb.authorizationserver.domain.user.repository.UserRepository;
+import team.sb.authorizationserver.global.exception.UserNotFoundException;
 
 @RequiredArgsConstructor
 @Component
@@ -25,7 +25,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         String password = authentication.getCredentials().toString();
 
         User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("user is not exists"));
+                .orElseThrow(() -> UserNotFoundException.EXCEPTION);
 
         if (!passwordEncoder.matches(password, user.getPassword()))
             throw new BadCredentialsException("password is not valid");
