@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.*;
 import team.sb.authorizationserver.domain.user.api.dto.SignupRequest;
 import team.sb.authorizationserver.domain.user.service.UserService;
 
+import javax.validation.Valid;
+
 @RequiredArgsConstructor
 @RequestMapping("/user")
 @RestController
@@ -15,7 +17,7 @@ public class UserController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void signup(@RequestBody SignupRequest request) {
+    public void signup(@RequestBody @Valid SignupRequest request) {
         userService.signup(request);
     }
 
