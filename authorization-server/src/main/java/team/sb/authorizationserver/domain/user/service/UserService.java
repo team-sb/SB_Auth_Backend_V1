@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import team.sb.authorizationserver.domain.user.api.dto.SignupRequest;
 import team.sb.authorizationserver.domain.user.entity.User;
 import team.sb.authorizationserver.domain.user.repository.UserRepository;
+import team.sb.authorizationserver.global.exception.UserAlreadyExistsException;
 
 @RequiredArgsConstructor
 @Service
@@ -18,7 +19,7 @@ public class UserService {
     @Transactional
     public void signup(SignupRequest request) {
         if(userRepository.findByEmail(request.getEmail()).isPresent()) {
-            throw new RuntimeException("user already exists");
+            throw UserAlreadyExistsException.EXCEPTION;
         }
 
         userRepository.save(User.builder()
