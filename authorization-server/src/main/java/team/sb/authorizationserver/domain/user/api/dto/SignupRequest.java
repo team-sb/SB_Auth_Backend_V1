@@ -1,15 +1,15 @@
 package team.sb.authorizationserver.domain.user.api.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.format.annotation.DateTimeFormat;
 import team.sb.authorizationserver.domain.user.entity.Gender;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Getter
 @NoArgsConstructor
@@ -36,8 +36,8 @@ public class SignupRequest {
     @NotBlank(message = "gender는 Null, 공백을 허용하지 않습니다.")
     private Gender gender;
 
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     @NotBlank(message = "birthDay는 Null, 공백을 허용하지 않습니다.")
-    private LocalDateTime birthDay;
+    private LocalDate birthDay;
 
 }

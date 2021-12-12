@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -41,7 +41,7 @@ public class User implements UserDetails {
     private Gender gender;
 
     @Column(nullable = false)
-    private LocalDateTime birthDay;
+    private LocalDate birthDay;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default
