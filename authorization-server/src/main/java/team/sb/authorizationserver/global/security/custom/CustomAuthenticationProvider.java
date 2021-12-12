@@ -1,14 +1,14 @@
-package team.sb.authorizationserver.global.security;
+package team.sb.authorizationserver.global.security.custom;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import team.sb.authorizationserver.domain.user.entity.User;
 import team.sb.authorizationserver.domain.user.repository.UserRepository;
+import team.sb.authorizationserver.global.exception.InvalidPasswordException;
 import team.sb.authorizationserver.global.exception.UserNotFoundException;
 
 @RequiredArgsConstructor
@@ -28,7 +28,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
                 .orElseThrow(() -> UserNotFoundException.EXCEPTION);
 
         if (!passwordEncoder.matches(password, user.getPassword()))
-            throw new BadCredentialsException("password is not valid");
+            throw InvalidPasswordException.EXCEPTION;
 
         return new UsernamePasswordAuthenticationToken(email, password, user.getAuthorities());
     }
