@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import team.sb.authorizationserver.global.error.exception.SBException;
+import team.sb.resourceserver.global.error.exception.SBException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
