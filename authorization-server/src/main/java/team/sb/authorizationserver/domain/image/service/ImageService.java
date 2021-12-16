@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import team.sb.authorizationserver.domain.image.entity.Image;
 import team.sb.authorizationserver.domain.image.repository.ImageRepository;
+import team.sb.authorizationserver.domain.user.entity.User;
 import team.sb.authorizationserver.global.properties.S3Util;
 
 @RequiredArgsConstructor
@@ -19,7 +20,7 @@ public class ImageService {
 
         return imageRepository.save(
                 Image.builder()
-                        .imagepath(imagePath)
+                        .imagePath(imagePath)
                         .imageUrl(s3Util.getFileUrl(imagePath))
                         .build()
         );

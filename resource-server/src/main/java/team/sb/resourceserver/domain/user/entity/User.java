@@ -40,7 +40,7 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private LocalDate birthDay;
 
-    @OneToOne(mappedBy = "user", fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER)
     private Image profile;
 
     @Override
