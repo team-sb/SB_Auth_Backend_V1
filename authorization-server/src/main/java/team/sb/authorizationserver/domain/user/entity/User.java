@@ -4,6 +4,7 @@ import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import team.sb.authorizationserver.domain.image.entity.Image;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -42,6 +43,9 @@ public class User implements UserDetails {
 
     @Column(nullable = false)
     private LocalDate birthDay;
+
+    @OneToOne(fetch = FetchType.EAGER)
+    private Image profile;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default

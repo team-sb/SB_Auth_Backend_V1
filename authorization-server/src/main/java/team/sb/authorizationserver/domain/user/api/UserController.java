@@ -3,6 +3,7 @@ package team.sb.authorizationserver.domain.user.api;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import team.sb.authorizationserver.domain.user.api.dto.SignupRequest;
 import team.sb.authorizationserver.domain.user.service.UserService;
 
@@ -17,8 +18,8 @@ public class UserController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void signup(@RequestBody @Valid SignupRequest request) {
-        userService.signup(request);
+    public void signup(@RequestBody @Valid SignupRequest request, MultipartFile profile) {
+        userService.signup(request, profile);
     }
 
 }

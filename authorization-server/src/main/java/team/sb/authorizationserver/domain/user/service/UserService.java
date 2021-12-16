@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+import team.sb.authorizationserver.domain.image.service.ImageService;
 import team.sb.authorizationserver.domain.user.api.dto.SignupRequest;
 import team.sb.authorizationserver.domain.user.entity.User;
 import team.sb.authorizationserver.domain.user.repository.UserRepository;
@@ -13,11 +15,12 @@ import team.sb.authorizationserver.global.exception.UserAlreadyExistsException;
 @Service
 public class UserService {
 
+    private final ImageService imageService;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
-    public void signup(SignupRequest request) {
+    public void signup(SignupRequest request, MultipartFile profile) {
         if(userRepository.findByEmail(request.getEmail()).isPresent()) {
             throw UserAlreadyExistsException.EXCEPTION;
         }
@@ -29,6 +32,7 @@ public class UserService {
                 .phoneNumber(request.getPhoneNumber())
                 .gender(request.getGender())
                 .birthDay(request.getBirthDay())
+                .profile(imageService.addImage(profile))
                 .build());
     }
 
