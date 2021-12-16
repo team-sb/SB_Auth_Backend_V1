@@ -1,4 +1,4 @@
-package team.sb.authorizationserver.global.config;
+package team.sb.authorizationserver.global.properties;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
