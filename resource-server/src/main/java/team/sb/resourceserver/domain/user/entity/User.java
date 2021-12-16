@@ -4,6 +4,7 @@ import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import team.sb.resourceserver.domain.image.entity.Image;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -38,6 +39,9 @@ public class User implements UserDetails {
 
     @Column(nullable = false)
     private LocalDate birthDay;
+
+    @OneToOne(fetch = FetchType.EAGER)
+    private Image profile;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
