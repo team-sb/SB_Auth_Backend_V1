@@ -44,7 +44,7 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private LocalDate birthDay;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(mappedBy = "user", fetch = FetchType.EAGER)
     private Image profile;
 
     @ElementCollection(fetch = FetchType.EAGER)

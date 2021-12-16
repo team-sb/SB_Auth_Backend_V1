@@ -20,7 +20,7 @@ public class Image {
     private String imagePath;
     private String imageUrl;
 
-    @OneToOne(mappedBy = "image", fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     private User user;
 
     @Builder

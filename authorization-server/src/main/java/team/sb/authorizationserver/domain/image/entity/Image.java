@@ -19,13 +19,14 @@ public class Image {
     private String imagePath;
     private String imageUrl;
 
-    @OneToOne(mappedBy = "image", fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     private User user;
 
     @Builder
-    public Image(String imagePath, String imageUrl) {
+    public Image(String imagePath, String imageUrl, User user) {
         this.imagePath = imagePath;
         this.imageUrl = imageUrl;
+        this.user = user;
     }
 
 }
