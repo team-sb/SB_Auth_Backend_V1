@@ -8,6 +8,7 @@ import team.sb.authorizationserver.domain.user.entity.Gender;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
 
@@ -33,11 +34,11 @@ public class SignupRequest {
     @Length(min = 11, max = 11, message = "phoneNumber는 11자여야합니다.")
     private String phoneNumber;
 
-    @NotBlank(message = "gender는 Null, 공백을 허용하지 않습니다.")
+    @NotNull(message = "gender는 Null, 공백을 허용하지 않습니다.")
     private Gender gender;
 
     @DateTimeFormat(pattern="yyyy-MM-dd")
-    @NotBlank(message = "birthDay는 Null, 공백을 허용하지 않습니다.")
+    @NotNull(message = "birthDay는 Null, 공백을 허용하지 않습니다.")
     private LocalDate birthDay;
 
 }
